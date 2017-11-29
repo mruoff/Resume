@@ -1,0 +1,48 @@
+{% extends "basepage.html" %}
+
+{% block title %}
+All Professors Listed
+{% endblock %}
+
+{% block head%}
+  {{super()}}
+  <style>
+    body {
+      padding-top: 54px;
+    }
+  </style>
+{% endblock %}
+
+{% block page_content %}
+<div class="container">
+   <h1 class="mt-5"><i class="fa fa-user" aria-hidden="true"></i> Professor Directory</h1>
+  <div class="row bottom-margin">
+    <a href="/professors/add" class="btn btn-primary" role="button" aria-disabeled="true">Add Professor Here</a>
+  </div>
+{% if professors %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Professor ID</th>
+        <th>Name of Professor</th>
+        <th>Department</th>
+      </tr>
+    </thead>
+    <tbody>
+  {% for professor in professors %}
+  <tr>
+        <th scope="row">{{professor.id}}</th>
+        <td>{{professor.name}}</td>
+        <td>{{professor.department}}</td>
+        <td>
+          <a href="/professors/edit/{{professor.id}}" class ="btn btn-success" role="button" aria-disabled="true"> Edit</a>
+        </td>
+  </tr>
+   {% endfor %}
+ </tbody>
+</table>
+{% else %}
+<h3>There are no professors in the directory yet.</h3>
+{% endif %}
+</div>
+{% endblock %}

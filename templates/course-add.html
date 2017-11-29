@@ -1,0 +1,35 @@
+{% extends "basepage.html" %}
+
+{% block title %}
+Course Additions
+{% endblock %}
+
+{% block head%}
+  {{super()}}
+  <style>
+    body {
+      padding-top: 54px;
+    }
+  </style>
+{% endblock %}
+
+{% block page_content %}
+<div class="container">
+   <h1 class="mt-5"><i class="fa fa-paperclip" aria-hidden="true"></i> Add Courses Here:</h1>
+   <form action="/course-directory/add" method="post">
+     <div class="form-group">
+     <label>Course Code Number</label>
+     <input class="form-control" type="text" name="course number" placeholder="Course Number" required="true">
+  </div>
+  <div class="form-group">
+  <label>Course Title</label>
+  <input class="form-control" type="text" name="title" placeholder="Course Title" required="true">
+</div>
+  <div class="form-group">
+    <label>Description of the Course</label>
+    <textarea class="form-control" name="description" placeholder="Course Description" required="true"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Add Course</button>
+   </form>
+ </div>
+{% endblock %}

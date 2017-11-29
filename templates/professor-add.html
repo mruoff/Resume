@@ -1,0 +1,31 @@
+{% extends "basepage.html" %}
+
+{% block title %}
+Professor Additions
+{% endblock %}
+
+{% block head%}
+  {{super()}}
+  <style>
+    body {
+      padding-top: 54px;
+    }
+  </style>
+{% endblock %}
+
+{% block page_content %}
+<div class="container">
+   <h1 class="mt-5"><i class="fa fa-id-badge" aria-hidden="true"></i> Add Professors Here:</h1>
+   <form action="/professors/add" method="post">
+     <div class="form-group">
+     <label>Professor Name</label>
+     <input class="form-control" type="text" name="name" placeholder="Name of the Professor" required="true">
+  </div>
+  <div class="form-group">
+    <label>Department</label>
+    <textarea class="form-control" name="department" placeholder="Name of Department" required="true"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Add Professor</button>
+   </form>
+ </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "basepage.html" %}
+
+{% block title %}
+Developer Bio
+{% endblock %}
+
+{% block head %}
+  {{super()}}
+  <style>
+    body {
+      padding-top: 54px;
+    }
+     a:link {color: black;}
+     a:visited {color: black;}
+     a:hover {color: red;}
+     a:active {color: black;}
+    .mt-6{
+      display: inline-block;
+      padding-right: 30px;
+    }
+    #first-para {
+      padding-top: 15px;
+    }
+  </style>
+{% endblock %}
+
+{% block page_content %}
+<div class="container">
+   <h1 class="mt-5"><i class="fa fa-female" aria-hidden="true"></i> About Meghan Ruoff</h1>
+
+  <p id="first-para"> Hi, I'm Meghan! I am a Junior currently enrolled at the University of Delaware. I am double majoring in Management Informaiton Systems and Operations Management. I am a hardworking, adaptable, and friendly individual who loves a challenge. Continued learning is so important to me, I want to work for a company that places emphasis on continued learning, growth opportunities, and community service. Please feel free to contact me with any questions at mruoff@udel.edu</p>
+
+  <h3 id="link-header">Connect with me on Social Media: </h3>
+
+  <div class="col col-lg-3">
+  <h3 class="mt-6"><a href="https://www.facebook.com/meghan.ruoff"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></h3>
+  <h3 class="mt-6"><a href="https://www.linkedin.com/in/meghan-ruoff-0b98a3101/"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a></h3>
+</div>
+
+</div>
+{% endblock %}

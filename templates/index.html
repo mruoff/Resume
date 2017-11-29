@@ -1,0 +1,55 @@
+{% extends "basepage.html" %}
+
+{% block title %}
+Homepage/Resume
+{% endblock %}
+
+{% block head%}
+  {{super()}}
+  <style>
+    body {
+      padding-top: 54px;
+    }
+    #intro {
+      padding-top: 15px;
+    }
+  </style>
+{% endblock %}
+
+{% block page_content %}
+<div class="container">
+   <h1 class="mt-5"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Meghan's Resume</h1>
+   <h2>Education</h2>
+   <p>Univeristy of Delaware</p>
+   <p>Bachelor of Science, Management Information Systems and Operations Management</p>
+   <p>GPA: 3.467</p>
+   <h2>Work Experience</h2>
+   <p>Computer Aid Inc.</p>
+   <p>Operations Intern
+     <ul>
+       <li>Deal with Excel, PowerPoint, and other presentation platforms daily</li>
+       <li>Conduct research for various projects, and use this research to produce presentations geared towards creating real innovative change in the company</li>
+       <li>Restructured intern program to offer more opportunities for interns to learn about the industry and grow professionally through seminars and mentor-ship programs.</li>
+     </ul></p>
+
+    <p>Keller Williams Realty Inc.</p>
+    <p>Operations Intern
+      <ul>
+        <li>Created reports summarizing client contact data and trends, and used data to create a new lead management process which successfully increased client contacts by over 50 touches a week.</li>
+        <li>Implemented business social media campaign initiative through research analysis of social media markets to increase client engagement</li>
+        <li>Prepared advanced excel reports with complex formulas by collecting, summarizing, and analyzing data concerning relationships between advertisements and client conversions.</li>
+      </ul></p>
+
+  <h2>Skills</h2>
+  <p>
+    <ul>
+      <li>Basic Proficiency: Github, Microsoft Office, Java, HTML, R Statistical Computing, MYSQL, and CSS</li>
+      <li>Communicative in Spanish</li>
+    </ul>
+  </p>
+
+<h2>Contact:</h2>
+<h2 class="mt-6"><a href="https://www.linkedin.com/in/meghan-ruoff-0b98a3101/"><i class="fa fa-linkedin" aria-hidden="true"></i></a></h2>
+
+ </div>
+{% endblock %}

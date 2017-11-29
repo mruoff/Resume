@@ -1,0 +1,50 @@
+{% extends "basepage.html" %}
+
+{% block title %}
+All Courses Listed
+{% endblock %}
+
+{% block head%}
+  {{super()}}
+  <style>
+    body {
+      padding-top: 54px;
+    }
+  </style>
+{% endblock %}
+
+{% block page_content %}
+<div class="container">
+   <h1 class="mt-5"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Course Directory</h1>
+   <div class="row bottom-margin">
+     <a href="/course-directory/add" class="btn btn-primary" role="button" aria-disabeled="true">Add Course Here</a>
+   </div>
+{% if courses %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Course ID</th>
+      <th>Course Code Number</th>
+      <th>Course Title</th>
+      <th>Course Description</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for course in courses %}
+  <tr>
+    <th scope="row">{{course.id}}</th>
+        <td>{{course.course_number}}</td>
+        <td>{{course.title}}</td>
+        <td>{{course.description}}</td>
+        <td>
+          <a href="/course-directory/edit/{{course.id}}" class ="btn btn-success" role="button" aria-disabled="true"> Edit Courses</a>
+        </td>
+  </tr>
+   {% endfor %}
+ </tbody>
+</table>
+{% else %}
+<h3>There are currently no courses in the directory.</h3>
+{% endif %}
+</div>
+{% endblock %}

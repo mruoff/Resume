@@ -1,0 +1,35 @@
+{% extends "basepage.html" %}
+
+{% block title %}
+Edit Courses Here
+{% endblock %}
+
+{% block head%}
+  {{super()}}
+  <style>
+    body {
+      padding-top: 54px;
+    }
+  </style>
+{% endblock %}
+
+{% block page_content %}
+<div class="container">
+   <h1 class="mt-5"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Course:</h1>
+  <form action="/course-directory/edit/{{course.id}}" method="post">
+    <div class="form-group">
+      <label>Course Code Number</label>
+      <input class="form-control" type="text" name="course number" value="{{course.course_number}}" required="true">
+    </div>
+    <div class="form-group">
+    <label>Course Title</label>
+    <input class="form-control" type="text" name="title" value="{{course.title}}" required="true">
+  </div>
+    <div class="form-group">
+      <label>Course Description</label>
+      <textarea class="form-control" name="description" required="true">{{course.description}}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Your Changes</button>
+  </form>
+ </div>
+{% endblock %}
