@@ -36,6 +36,8 @@ All Professors Listed
         <td>{{professor.department}}</td>
         <td>
           <a href="/professors/edit/{{professor.id}}" class ="btn btn-success" role="button" aria-disabled="true"> Edit</a>
+          <a href="/professor/delete/{{professor.id}}" class="btn btn-danger" role="button">Delete</a>
+          <button class="btn btn-warning delete_ajax_btn" role="button" data-professor-id="{{professor.id}}">Delete Ajax</a>
         </td>
   </tr>
    {% endfor %}
@@ -46,3 +48,58 @@ All Professors Listed
 {% endif %}
 </div>
 {% endblock %}
+
+
+
+{% block scripts%}
+{{super()}}
+<script>
+  $(document).ready(function() {
+    $(".delete_ajax_btn").click(function(event) {
+      var professor_id = $(this).data("professor-id");
+      // get the table row of this professor
+      var row = $(this).parent().parent();
+      swal({
+          title: "Are you sure?",
+          text: "All courses with this professor will be deleted too!",
+          type: "warning",
+          html: true,
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, delete it!",
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true
+        },
+        function(isConfirm) {
+          if (isConfirm) {
+            $.ajax({
+                type: "DELETE",
+                url: "/api/professor/" + professor_id,
+                success: function(response) {
+                  console.log(response);
+                  row.remove(); // remove the table row
+                  swal({
+                    title: "Deleted!",
+                    text: response.name + " has been deleted.",
+                    type: "success",
+                    timer: 2500,
+                    showConfirmButton: false
+                  }); // end of SweetAlert
+                } // end of success callback function
+              }) // end of ajax call
+              .fail(function(error) {
+                // console.log(data);
+                swal({
+                  title: "Oops...",
+                  text: "Deletion failed",
+                  type: "error",
+                  timer: 2000,
+                  showConfirmButton: false
+                }); // end of SweetAlert
+              }); // end of fail callback function
+          } // end of if confirmed block
+        }); // end of confirmed function of SweetAlert
+    }); // end of button click event function
+  }); // end doc ready
+</script>
+{% endblock%}

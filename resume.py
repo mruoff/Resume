@@ -1,19 +1,22 @@
 import os
-from flask import Flask, session, render_template, request, redirect, url_for
+from flask import Flask, session, render_template, request, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
+
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'mysecretkey'
 
-
+# setup SQLAlchemy
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 db = SQLAlchemy(app)
 
+#Define databse tables
 class Professor(db.Model):
     __tablename__ = 'professors'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(70))
     department = db.Column(db.Text)
-    courses = db.relationship('Course', backref='professor')
+    courses = db.relationship('Course', backref='professor', cascade="delete")
 
 
 class Course(db.Model):
@@ -68,6 +71,26 @@ def edit_professor(id):
         db.session.commit()
         return redirect(url_for('show_all_professors'))
 
+@app.route('/professor/delete/<int:id>', methods=['GET', 'POST'])
+def delete_professor(id):
+    professor = Professor.query.filter_by(id=id).first()
+    if request.method == 'GET':
+        return render_template('professor-delete.html', professor=professor)
+    if request.method == 'POST':
+        # delete the professor by id
+        # all related entries are deleted as well
+        db.session.delete(professor)
+        db.session.commit()
+        return redirect(url_for('show_all_professors'))
+
+
+@app.route('/api/professor/<int:id>', methods=['DELETE'])
+def delete_ajax_professor(id):
+    professor = Professor.query.get_or_404(id)
+    db.session.delete(professor)
+    db.session.commit()
+    return jsonify({"id": str(professor.id), "name": professor.name})
+
 
 @app.route('/course-directory/edit/<int:id>', methods=['GET', 'POST'])
 def edit_course(id):
@@ -80,6 +103,25 @@ def edit_course(id):
         course.description = request.form['description']
         db.session.commit()
         return redirect(url_for('show_all_courses'))
+
+@app.route('/course-directory/delete/<int:id>', methods=['GET', 'POST'])
+def delete_course(id):
+    course = Course.query.filter_by(id=id).first()
+    professor = Professor.query.all()
+    if request.method == 'GET':
+        return render_template('course-delete.html', course=course, professor=professor)
+    if request.method == 'POST':
+        db.session.delete(course)
+        db.session.commit()
+        return redirect(url_for('show_all_courses'))
+
+
+@app.route('/api/course-directory/<int:id>', methods=['DELETE'])
+def delete_ajax_course(id):
+    course = Course.query.get_or_404(id)
+    db.session.delete(course)
+    db.session.commit()
+    return jsonify({"id": str(course.id), "name": course.name})
 
 
 @app.route('/professors/add', methods=['GET', 'POST'])

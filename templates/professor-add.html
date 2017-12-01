@@ -26,6 +26,36 @@ Professor Additions
     <textarea class="form-control" name="department" placeholder="Name of Department" required="true"></textarea>
   </div>
   <button type="submit" class="btn btn-primary">Add Professor</button>
+  <button type="submit" class="btn btn-success" id="insert-ajax-btn">Add Professor Ajax</button>
    </form>
  </div>
 {% endblock %}
+
+{% block scripts%}
+{{super()}}
+<script>
+  $(document).ready(function() {
+    $("#insert-ajax-btn").click(function(event) {
+      event.preventDefault(); // prevent the button to submit the form
+      $.ajax({
+          type: "POST",
+          url: "/api/professor/add",
+          data: $("#add-professor-form").serialize(),
+          success: function(response) {
+            window.location.replace("/professors"); // redirect
+          } // end of success callback function
+        }) // end of ajax call
+        .fail(function(error) {
+          // console.log(data);
+          swal({
+            title: "Oops...",
+            text: "Insertion failed",
+            type: "error",
+            timer: 2000,
+            showConfirmButton: false
+          }); // end of SweetAlert
+        }); // end of fail callback function
+    }); // end of button click event function
+  }); // end doc ready
+</script>
+{% endblock%}
